@@ -57,3 +57,19 @@ async def test_get_current_user_missing_payload():
 
     assert excinfo.value.status_code == 401
     assert excinfo.value.detail == 'Could not validate credentials.'
+
+
+def test_create_user_cannot_choose_admin_role():
+    response = client.post('/auth/', json={'username': 'sneaky', 'email': 'sneaky@email.com',
+                                           'first_name': 'Sneaky', 'last_name': 'User',
+                                           'password': 'password', 'role': 'admin',
+                                           'phone_number': '1111111111'})
+    assert response.status_code == 201
+
+    db = TestingSessionLocal()
+    user = db.query(Users).filter(Users.username == 'sneaky').first()
+    assert user.role == 'user'
+
+    db.delete(user)
+    db.commit()
+    db.close()

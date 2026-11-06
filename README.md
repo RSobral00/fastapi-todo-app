@@ -46,7 +46,15 @@ openssl rand -hex 32
 uvicorn TodoApp.main:app --reload
 ```
 
-Open http://127.0.0.1:8000. You'll be sent to the login page; click **Register?** to create an account. To try the admin endpoints, register with the role `admin`.
+Open http://127.0.0.1:8000. You'll be sent to the login page; click **Register?** to create an account.
+
+New accounts always get the `user` role; the API ignores any role sent by the client. To try the admin endpoints locally, promote your account in the database:
+
+```bash
+sqlite3 todosapp.db "UPDATE users SET role = 'admin' WHERE username = 'your-username';"
+```
+
+Then log in again so your new token carries the admin role.
 
 The API docs are at http://127.0.0.1:8000/docs.
 
