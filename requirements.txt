@@ -1,0 +1,24 @@
+# Install with: pip install -r requirements.txt
+
+# Web framework and server
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+
+# Database
+SQLAlchemy==2.0.45
+alembic==1.20.1
+
+# Authentication
+python-jose[cryptography]==3.5.0
+passlib==1.7.4
+bcrypt==4.0.1             # keep at 4.0.1: newer bcrypt versions break passlib
+python-multipart==0.0.21  # needed for the OAuth2 login form (/auth/token)
+python-dotenv==1.2.1      # loads SECRET_KEY from the .env file
+
+# Templates (Jinja)
+Jinja2==3.1.6
+
+# Testing
+pytest==9.0.2
+pytest-asyncio==1.3.0
+httpx==0.28.1             # used by FastAPI's TestClient

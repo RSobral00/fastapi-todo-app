@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+.fastapienv/
+
+# SQLite databases (contain registered users and password hashes)
+*.db
+
+# Secrets
+.env
+
+# Test cache / macOS / editors
+.pytest_cache/
+.DS_Store
+.vscode/
+.idea/
