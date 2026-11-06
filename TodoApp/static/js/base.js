@@ -30,7 +30,7 @@
                 } else {
                     // Handle error
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
+                    alert(`Error: ${formatError(errorData)}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -80,7 +80,7 @@
             } else {
                 // Handle error
                 const errorData = await response.json();
-                alert(`Error: ${errorData.detail}`);
+                alert(`Error: ${formatError(errorData)}`);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -111,7 +111,7 @@
                 } else {
                     // Handle error
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
+                    alert(`Error: ${formatError(errorData)}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -156,7 +156,7 @@
                 } else {
                     // Handle error
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.detail}`);
+                    alert(`Error: ${formatError(errorData)}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -204,7 +204,7 @@
                 } else {
                     // Handle error
                     const errorData = await response.json();
-                    alert(`Error: ${errorData.message}`);
+                    alert(`Error: ${formatError(errorData)}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -216,6 +216,16 @@
 
 
 
+
+    // Helper function to turn a FastAPI error response into readable text.
+    // detail is a string for HTTPException, but a list of objects for validation errors (422).
+    function formatError(errorData) {
+        const detail = errorData.detail;
+        if (Array.isArray(detail)) {
+            return detail.map(err => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join('\n');
+        }
+        return detail || errorData.message || 'Something went wrong';
+    };
 
     // Helper function to get a cookie by name
     function getCookie(name) {
